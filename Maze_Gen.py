@@ -1,9 +1,15 @@
 import pygame
 from random import choice
 
+##### MAZE ATTRIBUTES
+maze_size = [30,30]
+wall_thickness = 5
+maze_wall_color = 'slate blue'
+background_color = 'black'
+
 
 ##### Determine Window Resolution and Tile Size, Calculate Column/Rows Based On Resolution
-maze_size = [30,30]
+
 TILE = 200
 while maze_size[0]*TILE > 1800 or maze_size[1]*TILE > 1000:
     TILE= TILE-1
@@ -27,13 +33,13 @@ class Cell:
     def draw(self): #Determine Cell's Visuals [Width/Height, Border Color]
         x,y = self.x * TILE, self.y * TILE
         if self.walls['top']:
-            pygame.draw.line(sc, pygame.Color('slate blue'), (x,y), (x + TILE, y), 5)
+            pygame.draw.line(sc, pygame.Color(maze_wall_color), (x,y), (x + TILE, y), wall_thickness)
         if self.walls['right']:
-            pygame.draw.line(sc, pygame.Color('slate blue'), (x + TILE, y), (x + TILE, y + TILE), 5)
+            pygame.draw.line(sc, pygame.Color(maze_wall_color), (x + TILE, y), (x + TILE, y + TILE), wall_thickness)
         if self.walls['bottom']:
-            pygame.draw.line(sc, pygame.Color('slate blue'), (x + TILE, y + TILE), (x, y + TILE), 5)
+            pygame.draw.line(sc, pygame.Color(maze_wall_color), (x + TILE, y + TILE), (x, y + TILE), wall_thickness)
         if self.walls['left']:
-            pygame.draw.line(sc, pygame.Color('slate blue'), (x, y + TILE), (x, y), 5)
+            pygame.draw.line(sc, pygame.Color(maze_wall_color), (x, y + TILE), (x, y), wall_thickness)
     
     def check_cell(self, x, y): #Locate Specific Cell By Position
         find_index = lambda x,y: x+y*cols
@@ -89,7 +95,7 @@ while stack:
 finish = False
 ##### Actualize the Game
 while True:
-    sc.fill(pygame.Color('black')) #Determine BackGround Color
+    sc.fill(pygame.Color(background_color)) #Determine BackGround Color
     
     for event in pygame.event.get(): #Retrieve all event that have occurred since this the last time this function was called
         if event.type == pygame.QUIT: #End Loop when Press (X) Button
