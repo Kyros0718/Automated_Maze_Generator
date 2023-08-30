@@ -1,4 +1,4 @@
-import pygame, time
+import pygame
 from random import choice
 
 
@@ -88,7 +88,6 @@ while stack:
 
 finish = False
 ##### Actualize the Game
-t0 = time.time() ##TIMER START
 while True:
     sc.fill(pygame.Color('black')) #Determine BackGround Color
     
@@ -105,18 +104,12 @@ while True:
             grid_cells[choice(range(cols))].walls['top'] = False
             grid_cells[choice(range(cols))+(rows-1)*(cols)].walls['bottom'] = False
             finish = True
-            t1 = time.time() ##TIMER END
-            total = t1-t0
-            print(total)
+
         else:
             
             grid_cells[choice(range(rows))*(cols)].walls['left'] = False
             grid_cells[choice(range(rows))*(cols)+cols-1].walls['right'] = False
             finish = True
-            t1 = time.time() ##TIMER END
-            total = t1-t0
-            print(total)
-            
     
     pygame.display.flip() #Update Contents of Entire Display
 
