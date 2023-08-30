@@ -59,10 +59,31 @@ def remove_walls(current, next): #Remove The wall between the current and next c
     dyd = {1: ['top','bottom'], -1: ['bottom','top']}
     
     wall_setFalse(*(dxd.get(dx) or dyd.get(dy)))
-        
+
+
 grid_cells = [Cell(col, row) for row in range(rows) for col in range(cols)] #Create a List of Cells with (X,Y) Positions 
 current_cell = grid_cells[0] #Start of the List is Cell(0,0)
 stack = []
+
+##### Create First Move in Stack
+current_cell.visited = True
+next_cell = current_cell.check_neighbors() # Visit A New Neighboribng Cell
+next_cell.visited = True
+stack.append(current_cell)
+remove_walls(current_cell, next_cell)
+current_cell = next_cell #Make New Cell the current Cell
+
+##### Create Maze with Algorithm
+while stack:
+    next_cell = current_cell.check_neighbors() # Visit A New Neighboribng Cell
+    if next_cell:
+        next_cell.visited = True
+        stack.append(current_cell)
+        remove_walls(current_cell, next_cell)
+        current_cell = next_cell #Make New Cell the current Cell
+
+    elif stack:
+        current_cell = stack.pop()
 
 
 finish = False
@@ -77,20 +98,6 @@ while True:
     
     
     [cell.draw() for cell in grid_cells] #Draw The Cell Graph
-    current_cell.visited = True
-
-    
-    
-    next_cell = current_cell.check_neighbors() # Visit A New Neighboribng Cell
-    if next_cell:
-        next_cell.visited = True
-        stack.append(current_cell)
-        remove_walls(current_cell, next_cell)
-        current_cell = next_cell #Make New Cell the current Cell
-    
-    elif stack:
-        current_cell = stack.pop()
-        
     
     if len(stack) == 0 and finish == False: #Create Start/Finish Entrance and Exit
         if choice([1,2]) == 1:
@@ -110,8 +117,6 @@ while True:
             total = t1-t0
             print(total)
             
-    elif len(stack) == 0: # Make Orange Cell Disappear
-        grid_cells[0].visited = True
-        grid_cells[0].draw()
     
     pygame.display.flip() #Update Contents of Entire Display
+
