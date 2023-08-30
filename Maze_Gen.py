@@ -55,14 +55,10 @@ def remove_walls(current, next): #Remove The wall between the current and next c
     def wall_setFalse(a,b):
         current.walls[a], next.walls[b] = False, False
     dx , dy = current.x - next.x, current.y - next.y
-    if dx == 1:
-        wall_setFalse('left','right')
-    elif dx == -1:
-        wall_setFalse('right','left')
-    if dy == 1:
-        wall_setFalse('top','bottom')
-    elif dy == -1:
-        wall_setFalse('bottom','top')
+    dxd = {1: ['left','right'], -1: ['right','left']}
+    dyd = {1: ['top','bottom'], -1: ['bottom','top']}
+    
+    wall_setFalse(*(dxd.get(dx) or dyd.get(dy)))
         
 grid_cells = [Cell(col, row) for row in range(rows) for col in range(cols)] #Create a List of Cells with (X,Y) Positions 
 current_cell = grid_cells[0] #Start of the List is Cell(0,0)
