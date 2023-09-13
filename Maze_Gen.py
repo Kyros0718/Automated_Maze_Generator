@@ -80,6 +80,7 @@ remove_walls(current_cell, next_cell)
 current_cell = next_cell #Make New Cell the current Cell
 
 ##### Create Maze with Algorithm
+finish = False
 while stack:
     next_cell = current_cell.check_neighbors() # Visit A New Neighboribng Cell
     if next_cell:
@@ -90,19 +91,6 @@ while stack:
 
     elif stack:
         current_cell = stack.pop()
-
-
-finish = False
-##### Actualize the Game
-while True:
-    sc.fill(pygame.Color(background_color)) #Determine BackGround Color
-    
-    for event in pygame.event.get(): #Retrieve all event that have occurred since this the last time this function was called
-        if event.type == pygame.QUIT: #End Loop when Press (X) Button
-            exit()
-    
-    
-    [cell.draw() for cell in grid_cells] #Draw The Cell Graph
     
     if len(stack) == 0 and finish == False: #Create Start/Finish Entrance and Exit
         if choice([1,2]) == 1:
@@ -116,6 +104,20 @@ while True:
             grid_cells[choice(range(rows))*(cols)].walls['left'] = False
             grid_cells[choice(range(rows))*(cols)+cols-1].walls['right'] = False
             finish = True
+
+
+##### Actualize the Game
+while True:
+    sc.fill(pygame.Color(background_color)) #Determine BackGround Color
+    
+    for event in pygame.event.get(): #Retrieve all event that have occurred since this the last time this function was called
+        if event.type == pygame.QUIT: #End Loop when Press (X) Button
+            exit()
+    
+    
+    [cell.draw() for cell in grid_cells] #Draw The Cell Graph
+    
+    
     
     pygame.display.flip() #Update Contents of Entire Display
 
