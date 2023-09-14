@@ -29,6 +29,8 @@ class Cell:
         self.x, self.y = x, y
         self.walls = {'top': True, 'right': True, 'bottom': True, 'left': True}
         self.visited = False
+        self.entrance = {'top': False, 'left': False}
+        self.exit = {'right': False, 'bottom': False}
         
     def draw(self): #Determine Cell's Visuals [Width/Height, Border Color]
         x,y = self.x * TILE, self.y * TILE
