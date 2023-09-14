@@ -6,7 +6,8 @@ maze_size = [30,30]
 wall_thickness = 5
 maze_wall_color = 'slate blue'
 background_color = 'black'
-
+entrance_color = "white"
+exit_color = "white"
 
 ##### Determine Window Resolution and Tile Size, Calculate Column/Rows Based On Resolution
 
@@ -32,17 +33,29 @@ class Cell:
         self.entrance = {'top': False, 'left': False}
         self.exit = {'right': False, 'bottom': False}
         
+        
     def draw(self): #Determine Cell's Visuals [Width/Height, Border Color]
         x,y = self.x * TILE, self.y * TILE
         if self.walls['top']:
             pygame.draw.line(sc, pygame.Color(maze_wall_color), (x,y), (x + TILE, y), wall_thickness)
+            if self.entrance['top']:
+                pygame.draw.line(sc, pygame.Color(entrance_color), (x,y), (x + TILE, y), wall_thickness)
+                
         if self.walls['right']:
             pygame.draw.line(sc, pygame.Color(maze_wall_color), (x + TILE, y), (x + TILE, y + TILE), wall_thickness)
+            if self.exit['right']:
+                pygame.draw.line(sc, pygame.Color(exit_color), (x + TILE, y), (x + TILE, y + TILE), wall_thickness)
+                
         if self.walls['bottom']:
             pygame.draw.line(sc, pygame.Color(maze_wall_color), (x + TILE, y + TILE), (x, y + TILE), wall_thickness)
+            if self.exit['bottom']:
+                pygame.draw.line(sc, pygame.Color(exit_color), (x + TILE, y + TILE), (x, y + TILE), wall_thickness)
+                
         if self.walls['left']:
             pygame.draw.line(sc, pygame.Color(maze_wall_color), (x, y + TILE), (x, y), wall_thickness)
-    
+            if self.entrance['left']:
+                pygame.draw.line(sc, pygame.Color(entrance_color), (x, y + TILE), (x, y), wall_thickness)
+                
     def check_cell(self, x, y): #Locate Specific Cell By Position
         find_index = lambda x,y: x+y*cols
         if x < 0 or x > cols-1 or y < 0 or y > rows - 1:
@@ -97,14 +110,13 @@ while stack:
     if len(stack) == 0 and finish == False: #Create Start/Finish Entrance and Exit
         if choice([1,2]) == 1:
             
-            grid_cells[choice(range(cols))].walls['top'] = False
-            grid_cells[choice(range(cols))+(rows-1)*(cols)].walls['bottom'] = False
-            finish = True
+            grid_cells[choice(range(cols))].entrance["top"] = True
+            grid_cells[choice(range(cols))+(rows-1)*(cols)].exit["bottom"] = True
 
         else:
             
-            grid_cells[choice(range(rows))*(cols)].walls['left'] = False
-            grid_cells[choice(range(rows))*(cols)+cols-1].walls['right'] = False
+            grid_cells[choice(range(rows))*(cols)].entrance["left"] = True
+            grid_cells[choice(range(rows))*(cols)+cols-1].exit["right"] = True
             finish = True
 
 
