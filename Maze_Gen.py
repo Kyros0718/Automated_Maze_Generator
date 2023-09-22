@@ -15,12 +15,13 @@ if wall_thickness <= 0:
     wall_thickness = 1
 
 
-##### Determine Window Resolution and Tile Size, Calculate Column/Rows Based On Resolution
+##### Determine Window's Resolution and Tile Size, Calculate Column/Rows Based On Resolution
 TILE = 200
-while maze_size[0]*TILE > 1800 or maze_size[1]*TILE > 1000:
+while maze_size[0]*TILE > 1800 or maze_size[1]*TILE > 1000: #Scale the maze's cell size to fit within window frame
     TILE= TILE-1
+    
 maze_size = (maze_size[0]*TILE+3,maze_size[1]*TILE+3)
-RES = WIDTH, HEIGHT = maze_size
+RES = WIDTH, HEIGHT = maze_size #Set game's resolution size to be the same size as the maze
 cols, rows = WIDTH // TILE, HEIGHT // TILE
 
 
@@ -29,7 +30,7 @@ pygame.init()
 sc = pygame.display.set_mode(RES) #Set display Windows Width/Height Parameter
 
 
-##### Create An Graph made of Individual Interactive Cells
+##### Create a Graph made of Individual Interactive Cells
 class Cell:
     def __init__(self, x,y): #Determine Cell's Properties: [Coordinate, Walls, Visited]
         self.x, self.y = x, y
