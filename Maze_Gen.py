@@ -7,7 +7,7 @@ maze_size = [30,30]
 maze_wall_color = 'slate blue'
 background_color = 'black'
 entrance_color = "white"
-exit_color = "white"
+exit_color = entrance_color
 
 wall_thickness = int(10-max(maze_size)*(2/25))
 if wall_thickness <= 0:
