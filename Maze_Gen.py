@@ -81,7 +81,7 @@ class Cell:
         right = self.check_cell(self.x+1, self.y)
         bottom = self.check_cell(self.x, self.y + 1)
         left = self.check_cell(self.x - 1, self.y)
-        list(map(lambda x: neighbors.append(x) if x and not x.visited else False, [top,right,bottom,left]))
+        list(map(lambda x: neighbors.append(x) if x and not x.visited and not x.barrier else False, [top,right,bottom,left]))
             
         return choice(neighbors) if neighbors else False
         
@@ -112,7 +112,7 @@ list(map(lambda x: list(map(lambda y: set_barrier(grid_cells[x+y]), [0,rows, (ro
 list(map(lambda x: list(map(lambda y: set_barrier(grid_cells[x*cols+y]), [0,1, cols-1,cols-2])), range(rows))) #Left/Right Barriers
 
 
-current_cell = grid_cells[0] #Start of the List is Cell(0,0)
+current_cell = grid_cells[2+2*cols] #Start of the List is cell in top-left corner within the barrier
 stack = []
 
 
