@@ -1,6 +1,7 @@
 import pygame
 from random import choice
 
+
 ##### MAZE ATTRIBUTES
 maze_size = [30,30]
 
@@ -12,8 +13,9 @@ exit_color = entrance_color
 wall_thickness = int(10-max(maze_size)*(2/25))
 if wall_thickness <= 0:
     wall_thickness = 1
-##### Determine Window Resolution and Tile Size, Calculate Column/Rows Based On Resolution
 
+
+##### Determine Window Resolution and Tile Size, Calculate Column/Rows Based On Resolution
 TILE = 200
 while maze_size[0]*TILE > 1800 or maze_size[1]*TILE > 1000:
     TILE= TILE-1
@@ -35,8 +37,8 @@ class Cell:
         self.visited = False
         self.entrance = {'top': False, 'left': False}
         self.exit = {'right': False, 'bottom': False}
-        
-        
+
+
     def draw(self): #Determine Cell's Visuals [Width/Height, Border Color]
         x,y = self.x * TILE, self.y * TILE
         if self.walls['top']:
@@ -59,11 +61,13 @@ class Cell:
             if self.entrance['left']:
                 pygame.draw.line(sc, pygame.Color(entrance_color), (x, y + TILE), (x, y), wall_thickness)
                 
+                
     def check_cell(self, x, y): #Locate Specific Cell By Position
         find_index = lambda x,y: x+y*cols
         if x < 0 or x > cols-1 or y < 0 or y > rows - 1:
             return False
         return grid_cells[find_index(x,y)]
+    
     
     def check_neighbors(self): #Search For New Cell from current cell by Randomized Choice
         neighbors = []
@@ -75,6 +79,7 @@ class Cell:
             
         return choice(neighbors) if neighbors else False
         
+        
 def remove_walls(current, next): #Remove The wall between the current and next cell
     def wall_setFalse(a,b):
         current.walls[a], next.walls[b] = False, False
@@ -84,10 +89,11 @@ def remove_walls(current, next): #Remove The wall between the current and next c
     
     wall_setFalse(*(dxd.get(dx) or dyd.get(dy)))
 
-
+#####
 grid_cells = [Cell(col, row) for row in range(rows) for col in range(cols)] #Create a List of Cells with (X,Y) Positions 
 current_cell = grid_cells[0] #Start of the List is Cell(0,0)
 stack = []
+
 
 ##### Create First Move in Stack
 current_cell.visited = True
@@ -96,6 +102,7 @@ next_cell.visited = True
 stack.append(current_cell)
 remove_walls(current_cell, next_cell)
 current_cell = next_cell #Make New Cell the current Cell
+
 
 ##### Create Maze with Algorithm
 finish = False
