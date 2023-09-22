@@ -125,14 +125,25 @@ while stack: #Generate Maze until stack is empty
     
     if len(stack) == 0 and finish == False: #Create Start/Finish Entrance and Exit
         if choice([1,2]) == 1:
+            en_cell = grid_cells[choice(range(cols))]
+            ex_cell = grid_cells[choice(range(cols))+(rows-1)*(cols)]
             
-            grid_cells[choice(range(cols))].entrance["top"] = True
-            grid_cells[choice(range(cols))+(rows-1)*(cols)].exit["bottom"] = True
+            en_cell.walls["top"] = False
+            ex_cell.walls["bottom"] = False
+            
+            en_cell.entrance["top"] = True
+            ex_cell.exit["bottom"] = True
 
         else:
+            en_cell = grid_cells[choice(range(rows))*(cols)]
+            ex_cell = grid_cells[choice(range(rows))*(cols)+cols-1]
             
-            grid_cells[choice(range(rows))*(cols)].entrance["left"] = True
-            grid_cells[choice(range(rows))*(cols)+cols-1].exit["right"] = True
+            en_cell.walls["left"] = False
+            ex_cell.walls["right"] = False
+            
+            en_cell.entrance["left"] = True
+            ex_cell.exit["right"] = True
+            
             finish = True
 
 
