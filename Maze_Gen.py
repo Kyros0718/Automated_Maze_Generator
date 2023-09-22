@@ -30,9 +30,9 @@ pygame.init()
 sc = pygame.display.set_mode(RES) #Set display Windows Width/Height Parameter
 
 
-##### Create a Graph made of Individual Interactive Cells
+##### Construct a Graph made of Individual Interactive Cells
 class Cell:
-    def __init__(self, x,y): #Determine Cell's Properties: [Coordinate, Walls, Visited]
+    def __init__(self, x,y): #Determine Cell's Properties: [Coordinates, Walls, Visited, Entrance, Exit]
         self.x, self.y = x, y
         self.walls = {'top': True, 'right': True, 'bottom': True, 'left': True}
         self.visited = False
@@ -66,7 +66,7 @@ class Cell:
                 pygame.draw.line(sc, pygame.Color(entrance_color), (x, y + TILE-wall_adj), (x, y+wall_adj), hole)
                 
                 
-    def check_cell(self, x, y): #Locate Specific Cell By Position
+    def check_cell(self, x, y): #Locate a Cell By its Position
         find_index = lambda x,y: x+y*cols
         if x < 0 or x > cols-1 or y < 0 or y > rows - 1:
             return False
@@ -84,7 +84,7 @@ class Cell:
         return choice(neighbors) if neighbors else False
         
         
-def remove_walls(current, next): #Remove The wall between the current and next cell
+def remove_walls(current, next): #Remove The Wall between the current and next cell
     def wall_setFalse(a,b):
         current.walls[a], next.walls[b] = False, False
     dx , dy = current.x - next.x, current.y - next.y
@@ -93,13 +93,15 @@ def remove_walls(current, next): #Remove The wall between the current and next c
     
     wall_setFalse(*(dxd.get(dx) or dyd.get(dy)))
 
-#####
+
+##### Generate the cells to form a graph
 grid_cells = [Cell(col, row) for row in range(rows) for col in range(cols)] #Create a List of Cells with (X,Y) Positions 
+
 current_cell = grid_cells[0] #Start of the List is Cell(0,0)
 stack = []
 
 
-##### Create First Move in Stack
+##### Initiate First Move to add to stack
 current_cell.visited = True
 next_cell = current_cell.check_neighbors() # Visit A New Neighboribng Cell
 next_cell.visited = True
@@ -110,7 +112,7 @@ current_cell = next_cell #Make New Cell the current Cell
 
 ##### Create Maze with Algorithm
 finish = False
-while stack:
+while stack: #Generate Maze until stack is empty
     next_cell = current_cell.check_neighbors() # Visit A New Neighboribng Cell
     if next_cell:
         next_cell.visited = True
@@ -146,6 +148,8 @@ while True:
     [cell.draw() for cell in grid_cells] #Draw The Cell Graph
     
     
-    
     pygame.display.flip() #Update Contents of Entire Display
+
+
+
 
