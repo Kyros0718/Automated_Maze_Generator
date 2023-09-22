@@ -33,10 +33,11 @@ sc = pygame.display.set_mode(RES) #Set display Windows Width/Height Parameter
 
 ##### Construct a Graph made of Individual Interactive Cells
 class Cell:
-    def __init__(self, x,y): #Determine Cell's Properties: [Coordinates, Walls, Visited, Entrance, Exit]
+    def __init__(self, x,y): #Determine Cell's Properties: [Coordinates, Walls, Visited, Barrier Entrance, Exit]
         self.x, self.y = x, y
         self.walls = {'top': True, 'right': True, 'bottom': True, 'left': True}
         self.visited = False
+        self.barrier = False
         self.entrance = {'top': False, 'left': False}
         self.exit = {'right': False, 'bottom': False}
 
@@ -95,8 +96,21 @@ def remove_walls(current, next): #Remove The Wall between the current and next c
     wall_setFalse(*(dxd.get(dx) or dyd.get(dy)))
 
 
+def set_barrier(cell):
+    cell.barrier = True
+    cell.walls["top"] = False
+    cell.walls["bottom"] = False
+    cell.walls["left"] = False
+    cell.walls["right"] = False
+
+
 ##### Generate the cells to form a graph
 grid_cells = [Cell(col, row) for row in range(rows) for col in range(cols)] #Create a List of Cells with (X,Y) Positions 
+
+##### Define Barriers of graph
+list(map(lambda x: list(map(lambda y: set_barrier(grid_cells[x+y]), [0,rows, (rows-1)*(cols),(rows-2)*(cols)])), range(cols))) #Top/Bottom Barriers
+list(map(lambda x: list(map(lambda y: set_barrier(grid_cells[x*cols+y]), [0,1, cols-1,cols-2])), range(rows))) #Left/Right Barriers
+
 
 current_cell = grid_cells[0] #Start of the List is Cell(0,0)
 stack = []
