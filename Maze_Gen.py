@@ -10,7 +10,8 @@ background_color = 'black'
 entrance_color = "white"
 exit_color = entrance_color
 
-wall_thickness = int(10-max(maze_size)*(2/25))
+maze_size = [maze_size[0]+4,maze_size[1]+4]
+wall_thickness = int(10-(max(maze_size)-4)*(2/25))
 if wall_thickness <= 0:
     wall_thickness = 1
 
