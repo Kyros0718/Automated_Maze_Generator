@@ -8,3 +8,5 @@
 - **Background Color:** _Black_
 - **Entrance & Exit Color:** _White_
   
+##Example
+![](images/30x30Maze.png)
