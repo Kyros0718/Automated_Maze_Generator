@@ -98,10 +98,18 @@ def remove_walls(current, next): #Remove The Wall between the current and next c
 
 def set_barrier(cell):
     cell.barrier = True
+
     cell.walls["top"] = False
     cell.walls["bottom"] = False
     cell.walls["left"] = False
     cell.walls["right"] = False
+
+
+def set_walls(cell,sides,bools):
+        if sides == "horz":
+            cell[0].walls["left"], cell[-1].walls["right"] = bools, bools
+        if sides == "vert":
+            cell[0].walls["top"], cell[-1].walls["bottom"] = bools, bools
 
 
 ##### Generate the cells to form a graph
@@ -126,7 +134,6 @@ current_cell = next_cell #Make New Cell the current Cell
 
 
 ##### Create Maze with Algorithm
-finish = False
 while stack: #Generate Maze until stack is empty
     next_cell = current_cell.check_neighbors() # Visit A New Neighboribng Cell
     if next_cell:
@@ -138,10 +145,10 @@ while stack: #Generate Maze until stack is empty
     elif stack:
         current_cell = stack.pop()
     
-    if len(stack) == 0 and finish == False: #Create Start/Finish Entrance and Exit
+    if len(stack) == 0: #Create Start/Finish Entrance and Exit
         if choice([1,2]) == 1:
-            en_cell = grid_cells[choice(range(cols))]
-            ex_cell = grid_cells[choice(range(cols))+(rows-1)*(cols)]
+            en_cell = grid_cells[choice(range(2,cols-2))+rows*2]
+            ex_cell = grid_cells[choice(range(2,cols-2))+(rows-3)*(cols)]
             
             en_cell.walls["top"] = False
             ex_cell.walls["bottom"] = False
@@ -150,8 +157,8 @@ while stack: #Generate Maze until stack is empty
             ex_cell.exit["bottom"] = True
 
         else:
-            en_cell = grid_cells[choice(range(rows))*(cols)]
-            ex_cell = grid_cells[choice(range(rows))*(cols)+cols-1]
+            en_cell = grid_cells[choice(range(2,rows-2))*(cols)+2]
+            ex_cell = grid_cells[choice(range(2,rows-2))*(cols)+cols-3]
             
             en_cell.walls["left"] = False
             ex_cell.walls["right"] = False
@@ -159,7 +166,6 @@ while stack: #Generate Maze until stack is empty
             en_cell.entrance["left"] = True
             ex_cell.exit["right"] = True
             
-            finish = True
 
 
 ##### Actualize the Game
