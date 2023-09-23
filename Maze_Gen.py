@@ -124,7 +124,9 @@ def set_walls(cell,sides,bools):
 grid_cells = [Cell(col, row) for row in range(rows) for col in range(cols)] #Create a List of Cells with (X,Y) Positions 
 
 ##### Define Barriers of graph
-list(map(lambda x: list(map(lambda y: set_barrier(grid_cells[x+y]), [0,rows, (rows-1)*(cols),(rows-2)*(cols)])), range(cols))) #Top/Bottom Barriers
+
+
+list(map(lambda x: list(map(lambda y: set_barrier(grid_cells[x+y]), [0,cols, (rows-1)*(cols),(rows-2)*(cols)])), range(cols))) #Top/Bottom Barriers
 list(map(lambda x: list(map(lambda y: set_barrier(grid_cells[x*cols+y]), [0,1, cols-1,cols-2])), range(rows))) #Left/Right Barriers
 
 
@@ -155,7 +157,7 @@ while stack: #Generate Maze until stack is empty
     
     if len(stack) == 0: #Create Entrance/Exit
         if choice([1,2]) == 1: #Top/Bottom
-            en_cell = grid_cells[choice(range(2,cols-2))+rows*2]
+            en_cell = grid_cells[choice(range(2,cols-2))+cols*2]
             ex_cell = grid_cells[choice(range(2,cols-2))+(rows-3)*(cols)]
             
             set_walls([en_cell,ex_cell],"vert",False)
@@ -191,6 +193,8 @@ while True:
     
     
     pygame.display.flip() #Update Contents of Entire Display
+
+
 
 
 
