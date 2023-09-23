@@ -68,11 +68,23 @@ class Cell:
                 pygame.draw.line(sc, pygame.Color(entrance_color), (x, y + TILE-wall_adj), (x, y+wall_adj), hole)
                 
                 
-    def check_cell(self, x, y): #Locate a Cell By its Position
+    def check_cell(self, x, y): #Locate a Cell by its Position
         find_index = lambda x,y: x+y*cols
         if x < 0 or x > cols-1 or y < 0 or y > rows - 1:
             return False
         return grid_cells[find_index(x,y)]
+    
+    
+    def cell_check(self, side): #Locate a Cell by its direction
+        if side == "top":
+            hole = self.check_cell(self.x, self.y - 1)
+        if side == "right":
+            hole = self.check_cell(self.x+1, self.y)
+        if side == "bottom":
+            hole = self.check_cell(self.x, self.y + 1)
+        if side == "left":
+            hole = self.check_cell(self.x - 1, self.y)
+        return hole
     
     
     def check_neighbors(self): #Search For New Cell from current cell by Randomized Choice
@@ -145,23 +157,25 @@ while stack: #Generate Maze until stack is empty
     elif stack:
         current_cell = stack.pop()
     
-    if len(stack) == 0: #Create Start/Finish Entrance and Exit
-        if choice([1,2]) == 1:
+    if len(stack) == 0: #Create Entrance/Exit
+        if choice([1,2]) == 1: #Top/Bottom
             en_cell = grid_cells[choice(range(2,cols-2))+rows*2]
             ex_cell = grid_cells[choice(range(2,cols-2))+(rows-3)*(cols)]
             
-            en_cell.walls["top"] = False
-            ex_cell.walls["bottom"] = False
+            set_walls([en_cell,ex_cell],"vert",False)
+            set_walls([en_cell.cell_check("top")],"horz",True)
+            set_walls([ex_cell.cell_check("bottom")],"horz",True)
             
             en_cell.entrance["top"] = True
             ex_cell.exit["bottom"] = True
 
-        else:
+        else: #Left/Right
             en_cell = grid_cells[choice(range(2,rows-2))*(cols)+2]
             ex_cell = grid_cells[choice(range(2,rows-2))*(cols)+cols-3]
             
-            en_cell.walls["left"] = False
-            ex_cell.walls["right"] = False
+            set_walls([en_cell,ex_cell],"horz",False)
+            set_walls([en_cell.cell_check("left")],"vert",True)
+            set_walls([ex_cell.cell_check("right")],"vert",True)
             
             en_cell.entrance["left"] = True
             ex_cell.exit["right"] = True
