@@ -8,3 +8,6 @@
 - **Background Color:** _Black_
 - **Entrance & Exit Color:** _White_
   
+## Example
+
+<img src = https://github.com/Kyros0718/Automated_Maze_Generator/blob/main/Images/30x30_Maze.png width="500">
