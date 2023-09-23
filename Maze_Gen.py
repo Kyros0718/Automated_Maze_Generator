@@ -44,28 +44,24 @@ class Cell:
 
     def draw(self): #Determine Cell's Visuals [Width/Height, Border Color]
         x,y = self.x * TILE, self.y * TILE
-        hole = TILE*2-wall_thickness
-        wall_adj = wall_thickness//2
         
-        if self.walls['top']:
+        if self.walls['top']: #Draw Cell's Wall
             pygame.draw.line(sc, pygame.Color(maze_wall_color), (x,y), (x + TILE, y), wall_thickness)
-            if self.entrance['top']:
-                pygame.draw.line(sc, pygame.Color(entrance_color), (x+wall_adj,y), (x-wall_adj + TILE, y), hole)
-                 
         if self.walls['right']:
             pygame.draw.line(sc, pygame.Color(maze_wall_color), (x + TILE, y), (x + TILE, y + TILE), wall_thickness)
-            if self.exit['right']:
-                pygame.draw.line(sc, pygame.Color(exit_color), (x + TILE, y+wall_adj), (x + TILE, y + TILE-wall_adj), hole)    
-                
         if self.walls['bottom']:
-            pygame.draw.line(sc, pygame.Color(maze_wall_color), (x + TILE, y + TILE), (x, y + TILE), wall_thickness)
-            if self.exit['bottom']:
-                pygame.draw.line(sc, pygame.Color(exit_color), (x-wall_adj + TILE, y + TILE), (x+wall_adj, y + TILE), hole)   
-                
+            pygame.draw.line(sc, pygame.Color(maze_wall_color), (x + TILE, y + TILE), (x, y + TILE), wall_thickness) 
         if self.walls['left']:
             pygame.draw.line(sc, pygame.Color(maze_wall_color), (x, y + TILE), (x, y), wall_thickness)
-            if self.entrance['left']:
-                pygame.draw.line(sc, pygame.Color(entrance_color), (x, y + TILE-wall_adj), (x, y+wall_adj), hole)
+            
+        if self.entrance['top']: #Draw Entrance/Exit
+            pygame.draw.ellipse(sc, pygame.Color(entrance_color),(x, y-2*TILE , TILE , TILE))
+        if self.exit['right']:
+            pygame.draw.ellipse(sc, pygame.Color(exit_color),(x+2*TILE, y , TILE , TILE))
+        if self.exit['bottom']:
+            pygame.draw.ellipse(sc, pygame.Color(exit_color),(x, y+2*TILE , TILE , TILE))
+        if self.entrance['left']:
+            pygame.draw.ellipse(sc, pygame.Color(entrance_color),(x-2*TILE, y , TILE , TILE))
                 
                 
     def check_cell(self, x, y): #Locate a Cell by its Position
