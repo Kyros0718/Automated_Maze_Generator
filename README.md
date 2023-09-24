@@ -12,7 +12,7 @@
 
 &nbsp;
 
-## Example
+## Examples
 
 > 30x30
 <img src = https://github.com/Kyros0718/Automated_Maze_Generator/blob/main/Images/30x30_Maze.png width="500">
