@@ -32,3 +32,8 @@
 
 <img src = https://github.com/Kyros0718/Automated_Maze_Generator/blob/main/Images/43x28_Maze.png width="500">
 
+---
+
+## Footnote
+- Language: Python
+- Imports: pygame, random/choice
