@@ -14,19 +14,19 @@
 
 ## Examples
 
-> 30x30
+> _Size: 30x30_
 <img src = https://github.com/Kyros0718/Automated_Maze_Generator/blob/main/Images/30x30_Maze.png width="500">
 &nbsp;
 
-> 100x100
+> _Size: 100x100_
 <img src = https://github.com/Kyros0718/Automated_Maze_Generator/blob/main/Images/100x100_Maze.png width="500">
 &nbsp;
 
-> 25x50
+> _Size: 25x50_
 <img src = https://github.com/Kyros0718/Automated_Maze_Generator/blob/main/Images/25x50_Maze.png width="500">
 &nbsp;
 
-> 43x28
+> _Size: 43x28_
 <img src = https://github.com/Kyros0718/Automated_Maze_Generator/blob/main/Images/43x28_Maze.png width="500">
 &nbsp;
 
