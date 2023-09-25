@@ -33,12 +33,11 @@
 
 > _Size: 43x28_
 <img src = https://github.com/Kyros0718/Automated_Maze_Generator/blob/main/Images/43x28_Maze.png width="500">
-&nbsp;
 
----
----
-> **Language:** _Python_
->
-> **Imports:**
-> - _pygame_
-> - _choice_ (module: random)
+<br>
+
+> [!IMPORTANT]  
+> **Language:** _Python_  
+> **Imports:**  
+&nbsp; :small_orange_diamond: _pygame_  
+&nbsp; :small_orange_diamond: _choice_ (module: random) 
