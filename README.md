@@ -10,10 +10,10 @@
 
 ### MODIFIABLE ATTRIBUTES
 >Temporary Attributes
-- **Maze Size:** _30 x 30_
-- **Maze Wall Color:** _Slate Blue_
-- **Background Color:** _Black_
-- **Entrance & Exit Color:** _White_
+- $\color{GreenYellow}{\textsf{Maze Size:}}$ _30 x 30_
+- $\color{GreenYellow}{\textsf{Maze Wall Color:}}$ _Slate Blue_
+- $\color{GreenYellow}{\textsf{Background Color:}}$ _Black_
+- $\color{GreenYellow}{\textsf{Entrance and Exit Color:}}$ _White_
 
 &nbsp;
 
