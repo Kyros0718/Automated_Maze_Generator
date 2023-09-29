@@ -1,5 +1,5 @@
 # Automated_Maze_Generator
->  Generate a maze with random patterns. The maze generated will only have 1 correct path.
+>  Generate a maze with random patterns. This program uses algorithms to automatically generate networks of paths and walls to actualize a complex maze puzzle.
 
 <p align="center">
   <img src = https://github.com/Kyros0718/Automated_Maze_Generator/blob/main/Images/15x15_Maze.png width="500">
